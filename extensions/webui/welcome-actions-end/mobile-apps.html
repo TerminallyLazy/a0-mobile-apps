@@ -2,7 +2,7 @@
 <body>
 <section x-data x-move-before="'.welcome-lower-grid'" class="a0-mobile-home" aria-labelledby="a0-mobile-home-title">
   <div class="a0-mobile-home-intro">
-    <img class="a0-mobile-home-logo" src="/plugins/mobile_apps/webui/logo.webp" width="44" height="44" alt="">
+    <img class="a0-mobile-home-logo" src="/plugins/mobile_apps/webui/logo.webp" width="48" height="48" alt="">
     <div class="a0-mobile-home-copy">
       <h2 id="a0-mobile-home-title">Take Agent Zero with you</h2>
       <p>Your workspace, on Android and iOS.</p>
@@ -30,10 +30,10 @@
   padding: 12px 0;
   color: var(--color-text);
 }
-.a0-mobile-home-intro { display: flex; align-items: center; gap: 14px; min-width: 0; }
-.a0-mobile-home-logo { width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0; object-fit: contain; }
+.a0-mobile-home-intro { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.a0-mobile-home-logo { width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0; object-fit: contain; }
 .a0-mobile-home-copy { min-width: 0; }
-.a0-mobile-home h2 { margin: 0 0 4px; font-size: .95rem; line-height: 1.35; font-weight: 600; }
+.a0-mobile-home h2 { margin: 0 0 4px; font-size: 1rem; line-height: 1.35; font-weight: 600; }
 .a0-mobile-home p { margin: 0; font-size: .85rem; line-height: 1.45; color: var(--color-text-secondary); }
 .a0-mobile-home-actions { display: flex; gap: 10px; min-width: 0; }
 .a0-mobile-home-actions .button {
@@ -41,20 +41,28 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 40px;
+  min-height: 44px;
+  min-width: 120px;
   padding: 0 16px;
   margin: 0;
   border-radius: 8px;
-  font-size: .85rem;
+  font-size: .875rem;
   text-decoration: none;
   white-space: nowrap;
 }
 .a0-mobile-home-actions x-icon { font-size: 20px; }
 .a0-mobile-home-actions svg { width: 18px; height: 18px; flex-shrink: 0; }
 .a0-mobile-home-actions .button:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
+@media (hover: hover) {
+  .a0-mobile-home-actions .button:hover { border-color: var(--color-primary); }
+}
+.a0-mobile-home-actions .button:active { background-color: color-mix(in srgb, var(--color-primary) 12%, var(--color-panel)); }
+@media (prefers-reduced-motion: reduce) {
+  .a0-mobile-home-actions .button { transition: none; }
+}
 @media (max-width: 620px) {
   .a0-mobile-home-actions { width: 100%; }
-  .a0-mobile-home-actions .button { flex: 1; min-height: 44px; }
+  .a0-mobile-home-actions .button { flex: 1; }
 }
 </style>
 </html>
