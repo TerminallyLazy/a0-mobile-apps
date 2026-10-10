@@ -42,6 +42,6 @@ Opening download/help links visits GitHub or GitHub Pages; the Apple link visits
 
 ## Development
 
-Run `node --test tests/*.test.mjs`. Runtime files are in `webui/` and `extensions/webui/`; there is no backend, install hook, or execute script. The connection format matches Agent Zero Android 0.1.6.
+Run `node --test tests/*.test.mjs`. Runtime files are in `webui/` and `extensions/webui/`; there is no backend, install hook, or execute script. Keep the same `thumbnail.webp` in the plugin root for distribution and in `webui/thumbnail.webp` for the installed plugin list and information dialog. The connection format matches Agent Zero Android 0.1.6.
 
 MIT license. See THIRD-PARTY-NOTICES.txt for branding attribution.
