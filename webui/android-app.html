@@ -1,13 +1,89 @@
-<html><head><title>Get Agent Zero for Android</title><script type="module" src="/plugins/mobile_apps/webui/android-app-store.js"></script></head>
-<body><div x-data><template x-if="$store.mobileAppsStore"><div class="android-install" x-data="$store.mobileAppsStore.createModel()" x-create="onOpen($el)" x-destroy="cleanup()">
-  <header class="android-install-hero"><img src="/plugins/mobile_apps/webui/logo.webp" width="44" height="44" alt="Agent Zero"><div><h2>Your workspace. On Android.</h2><p>Install the free app, then connect to this Agent Zero server.</p><span class="android-install-beta">Public beta · Android 8.0+</span></div></header>
-  <div class="android-install-grid">
-    <section class="android-install-step"><h3>1. Download on your phone</h3><p>Scan with your phone’s camera to open the install page. On Android, tap Download APK below.</p><div class="android-install-qr" data-android-qr="install" role="img" aria-label="QR code for the Android installation page"></div><a class="btn btn-ok android-install-link" :href="apk" rel="noreferrer">Download APK <x-icon name="download" aria-hidden="true"></x-icon></a><a :href="installUrl" target="_blank" rel="noopener noreferrer">Installation help</a><p class="android-install-small">Open AgentZero.apk. If asked, allow installation from your browser, then tap Install.</p></section>
-    <section class="android-install-step"><h3>2. Connect this server</h3><p x-show="loading">Checking your HTTPS address…</p><div x-show="!loading && server"><p>In the app, choose <strong>Scan QR code</strong> and scan this code. Already on Android? Tap Open in Android.</p><div class="android-install-qr" data-android-qr="connect" role="img" aria-label="QR code containing this server’s HTTPS address"></div><a class="btn btn-ok android-install-link" :href="openUrl">Open in Android <x-icon name="open_in_new" aria-hidden="true"></x-icon></a><code class="android-install-address" x-text="server"></code><p class="android-install-small">Review the address, tap Connect, then sign in on your server’s page.</p></div><div x-show="!loading && !server"><p>Create an HTTPS link in <strong>Remote Control</strong>, then reopen this dialog. You can also enter your trusted HTTPS server address directly in the app.</p><p>Localhost and HTTP addresses cannot connect a phone to this computer.</p></div></section>
+<html>
+<head>
+  <title>Get Agent Zero on your phone</title>
+  <script type="module" src="/plugins/mobile_apps/webui/android-app-store.js"></script>
+</head>
+<body>
+<div x-data><template x-if="$store.mobileAppsStore">
+  <div class="mobile-install" x-data="$store.mobileAppsStore.createModel()" x-create="onOpen($el)" x-destroy="cleanup()">
+    <header class="mobile-install-hero">
+      <img src="/plugins/mobile_apps/webui/logo.webp" width="48" height="48" alt="">
+      <div><h2>Your workspace. On your phone.</h2><p>Choose your app, then connect to your Agent Zero server.</p></div>
+    </header>
+    <div class="mobile-install-platforms">
+      <section class="mobile-install-platform" aria-labelledby="mobile-android-title">
+        <h3 id="mobile-android-title"><x-icon name="android" aria-hidden="true"></x-icon>Android</h3>
+        <p class="mobile-install-meta">Public beta · Android 8.0+</p>
+        <p>Scan with your camera to open the download page on your phone.</p>
+        <div class="mobile-install-qr" data-mobile-qr="install" role="img" aria-label="QR code for the Android installation page"></div>
+        <a class="btn btn-ok mobile-install-link" :href="apk" rel="noreferrer">Download APK <x-icon name="download" aria-hidden="true"></x-icon></a>
+        <p class="mobile-install-small">Open AgentZero.apk and allow installation from your browser if asked. <a :href="installUrl" target="_blank" rel="noopener noreferrer">Installation help</a></p>
+      </section>
+      <section class="mobile-install-platform" aria-labelledby="mobile-ios-title">
+        <h3 id="mobile-ios-title"><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M17.05 12.04c.02 3.06 2.69 4.08 2.72 4.09-.02.07-.43 1.46-1.41 2.9-.85 1.24-1.73 2.48-3.12 2.5-1.37.03-1.81-.81-3.38-.81-1.56 0-2.05.78-3.35.84-1.34.05-2.36-1.34-3.21-2.58-1.75-2.53-3.09-7.16-1.29-10.28.89-1.55 2.49-2.53 4.23-2.56 1.32-.03 2.57.89 3.38.89.81 0 2.33-1.1 3.92-.94.66.03 2.52.27 3.72 2.02-.1.06-2.22 1.29-2.21 3.93M14.46 4.42c.71-.86 1.19-2.06 1.06-3.25-1.02.04-2.25.68-2.98 1.53-.65.75-1.22 1.96-1.06 3.11 1.13.09 2.28-.57 2.98-1.39"/></svg>iPhone &amp; iPad</h3>
+        <p class="mobile-install-meta">Public beta · Apple TestFlight</p>
+        <p>Scan with your camera to open the public beta in TestFlight.</p>
+        <div class="mobile-install-qr" data-mobile-qr="ios" role="img" aria-label="QR code for the iOS public beta on TestFlight"></div>
+        <a class="btn btn-ok mobile-install-link" :href="iosBeta" target="_blank" rel="noopener noreferrer">Join the iOS beta <x-icon name="open_in_new" aria-hidden="true"></x-icon></a>
+        <p class="mobile-install-small">Install Apple’s TestFlight app if prompted, then follow the invitation to install Agent Zero.</p>
+      </section>
+    </div>
+    <section class="mobile-install-connection" aria-labelledby="mobile-connect-title">
+      <div class="mobile-install-qr" x-show="!loading && server" data-mobile-qr="connect" role="img" aria-label="QR code containing this server’s HTTPS address"></div>
+      <div class="mobile-install-connection-copy">
+        <h3 id="mobile-connect-title">Connect to this server</h3>
+        <p x-show="loading" role="status">Checking your HTTPS address…</p>
+        <div x-show="!loading && server">
+          <p>Enter this HTTPS address in either app. On Android, you can also choose <strong>Scan QR code</strong> to scan it.</p>
+          <code class="mobile-install-address" x-text="server"></code>
+          <a class="mobile-install-open" :href="openUrl">Open in Android <x-icon name="open_in_new" aria-hidden="true"></x-icon></a>
+          <p class="mobile-install-small">Review the address, connect, then sign in on your server’s page.</p>
+        </div>
+        <div x-show="!loading && !server">
+          <p>Create an HTTPS link in <strong>Remote Control</strong>, then reopen this dialog. You can also enter your trusted HTTPS server address directly in either app.</p>
+          <p class="mobile-install-small">Localhost and HTTP addresses cannot connect a phone to this computer.</p>
+        </div>
+      </div>
+    </section>
+    <p class="mobile-install-note">Your Agent Zero server provides your chats and tools. QR codes are generated in your browser.</p>
   </div>
-  <p class="android-install-ios">Using an iPhone or iPad? <a href="https://testflight.apple.com/join/xqAFS5er" target="_blank" rel="noopener noreferrer">Get the iOS public beta ↗</a></p>
-  <p class="android-install-note">Your server provides the chats and tools. These codes contain addresses only; you still sign in normally. Install directly—no app store account needed.</p>
-</div></template></div></body>
+</template></div>
+</body>
 <style>
-.android-install{padding:8px}.android-install-hero{display:flex;gap:18px;align-items:flex-start;margin-bottom:26px}.android-install-hero>img{border-radius:10px;flex-shrink:0}.android-install-ios{padding-top:18px;border-top:1px solid var(--color-border)}.android-install h2{font-size:1.55rem;margin:0 0 8px}.android-install p{line-height:1.6;margin:8px 0 16px;color:var(--color-text-secondary)}.android-install-beta{font-size:.78rem;border:1px solid var(--color-border);border-radius:20px;padding:5px 10px}.android-install-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.android-install-step{padding:22px;border:1px solid var(--color-border);border-radius:16px;background:var(--color-panel);min-width:0}.android-install h3{font-size:1.15rem;margin:10px 0}.android-install-qr{background:#fff;padding:12px;border-radius:12px;width:184px;height:184px;margin:20px auto}.android-install-qr:empty{display:none}.android-install-qr img,.android-install-qr canvas{width:160px;height:160px}.android-install-link{display:flex!important;justify-content:center;align-items:center;gap:12px;min-height:48px;text-decoration:none!important;margin:16px 0}.android-install-step>a:not(.btn){display:block;text-align:center}.android-install-address{display:block;font-size:.8rem;overflow-wrap:anywhere;white-space:normal;text-align:center;margin-top:16px}.android-install .android-install-small,.android-install .android-install-note{font-size:.8rem}.android-install-note{margin-top:22px!important}@media(max-width:600px){.android-install-grid{grid-template-columns:1fr}.android-install{padding:0}.android-install-hero{gap:12px}.android-install-step{padding:18px}}
-</style></html>
+.mobile-install { padding: 8px; }
+.mobile-install-hero { display: flex; gap: 16px; align-items: center; margin-bottom: 24px; }
+.mobile-install-hero > img { border-radius: 12px; flex-shrink: 0; }
+.mobile-install h2 { font-size: 1.55rem; line-height: 1.25; margin: 0 0 6px; }
+.mobile-install h3 { display: flex; align-items: center; gap: 10px; font-size: 1.15rem; line-height: 1.35; margin: 0 0 8px; }
+.mobile-install h3 x-icon { font-size: 24px; }
+.mobile-install h3 svg { width: 22px; height: 22px; flex-shrink: 0; }
+.mobile-install p { line-height: 1.5; margin: 8px 0 12px; color: var(--color-text-secondary); }
+.mobile-install-hero p { margin: 0; }
+.mobile-install-platforms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.mobile-install-platform { display: flex; flex-direction: column; min-width: 0; padding: 22px; border: 1px solid var(--color-border); border-radius: 16px; background: var(--color-panel); }
+.mobile-install .mobile-install-meta { font-size: .8rem; margin: 0 0 8px; }
+.mobile-install-qr { box-sizing: content-box; background: #fff; padding: 12px; border-radius: 12px; width: 160px; height: 160px; margin: 16px auto; flex-shrink: 0; }
+.mobile-install-qr:empty { display: none; }
+.mobile-install-qr img, .mobile-install-qr canvas { width: 160px; height: 160px; }
+.mobile-install-link { display: flex !important; justify-content: center; align-items: center; gap: 10px; min-height: 48px; text-decoration: none !important; margin: auto 0 8px; }
+.mobile-install-platform .mobile-install-small { min-height: 3em; margin: 8px 0 0; }
+.mobile-install-connection { display: flex; align-items: center; gap: 24px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--color-border); }
+.mobile-install-connection > .mobile-install-qr { margin: 0; }
+.mobile-install-connection-copy { min-width: 0; }
+.mobile-install-address { display: block; font-size: .85rem; overflow-wrap: anywhere; white-space: normal; user-select: all; margin: 12px 0; }
+.mobile-install-open { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; }
+.mobile-install-open x-icon { font-size: 18px; }
+.mobile-install .mobile-install-small, .mobile-install .mobile-install-note { font-size: .8rem; }
+.mobile-install .mobile-install-note { margin: 22px 0 0; }
+.mobile-install a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
+@media (max-width: 600px) {
+  .mobile-install { padding: 0; }
+  .mobile-install-platforms { grid-template-columns: 1fr; }
+  .mobile-install-hero { gap: 12px; align-items: flex-start; }
+  .mobile-install h2 { font-size: 1.3rem; }
+  .mobile-install-platform { padding: 18px; }
+  .mobile-install-connection { flex-direction: column; align-items: stretch; gap: 18px; }
+  .mobile-install-connection > .mobile-install-qr { align-self: center; }
+}
+</style>
+</html>

@@ -2,7 +2,7 @@
 
 <img src="webui/logo.webp" width="128" height="128" alt="Agent Zero Mobile Apps logo">
 
-Small Android and Apple download buttons at the bottom of your Agent Zero sidebar, plus a Mobile Apps section on the Home dashboard. Android gets an APK download, installation help, and locally generated QR codes for installing the app and connecting to your HTTPS server. Apple opens the [iOS public beta](https://testflight.apple.com/join/xqAFS5er).
+Small Android and Apple download buttons at the bottom of your Agent Zero sidebar, plus a Mobile Apps section on the Home dashboard. Android gets an APK download, installation help, and locally generated QR codes for installing the app and connecting to your HTTPS server. The Mobile Apps dialog gives Android and iOS equal space, with a TestFlight QR code and beta button for iPhone and iPad. The sidebar Apple icon opens the [iOS public beta](https://testflight.apple.com/join/xqAFS5er).
 
 ## Install
 
@@ -18,7 +18,7 @@ Requires Agent Zero with the plugin manager and `sidebar-bottom-wrapper-end` and
 
 **Android:** select the Android icon, scan the install-page QR with your camera, and install the APK. Then choose **Scan QR code** in the app and scan the server QR. Review the address before connecting. You can also use **Open in Android** on your phone.
 
-**iPhone / iPad:** select the Apple icon and join the TestFlight beta. Connect to your server in the iOS app.
+**iPhone / iPad:** scan the iOS QR code in **Plugins → Mobile Apps → Open**, or select the Apple icon in the sidebar to join the TestFlight beta. Install TestFlight if prompted, then Agent Zero. Enter your HTTPS server address in the iOS app. The beta QR contains only the public TestFlight invitation, never your server address.
 
 Android requires a trusted HTTPS root address. If you opened the WebUI over local HTTP, the dialog reads the existing Remote Control tunnel status. If no usable HTTPS link exists, create one in **Remote Control** and reopen the dialog. The plugin never starts a tunnel or changes authentication.
 

@@ -1,3 +1,4 @@
+export const IOS_BETA_URL = 'https://testflight.apple.com/join/xqAFS5er';
 export const INSTALL_URL = 'https://terminallylazy.github.io/a0-android/';
 export const APK_URL = 'https://github.com/TerminallyLazy/a0-android/releases/latest/download/AgentZero.apk';
 
