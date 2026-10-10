@@ -1,7 +1,7 @@
 name: mobile_apps
 title: Mobile Apps
 description: Sidebar and Home dashboard download buttons for Agent Zero on Android and iOS, with local QR codes for Android installation and HTTPS server connection.
-version: 1.0.1
+version: 1.0.2
 settings_sections: []
 per_project_config: false
 per_agent_config: false
