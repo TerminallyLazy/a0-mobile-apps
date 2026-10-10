@@ -8,11 +8,11 @@ Small Android and Apple download buttons at the bottom of your Agent Zero sideba
 
 1. Open **Plugins → Install** in the Agent Zero WebUI.
 2. Choose the Git URL option and paste `https://github.com/TerminallyLazy/a0-mobile-apps`.
-3. Install, then reload the WebUI. Find **Mobile apps** above the sidebar version number and **Agent Zero on mobile** on Home.
+3. Install, then reload the WebUI. Find the Android and Apple icons above the sidebar version number and **Agent Zero on mobile** on Home.
 
 Alternatively, download [MobileApps.zip](https://github.com/TerminallyLazy/a0-mobile-apps/releases/latest/download/MobileApps.zip) and upload it through the plugin manager. The plugin name is `mobile_apps`.
 
-Requires Agent Zero with the plugin manager and `sidebar-bottom-wrapper-end` and `welcome-screen-end` extension points (tested on the October 2026 framework). Older builds without that extension need a server update.
+Requires Agent Zero with the plugin manager and `sidebar-bottom-wrapper-end` and `welcome-actions-end` extension points (tested on the October 2026 framework). Older builds without that extension need a server update.
 
 ## Connect your phone
 

@@ -1,0 +1,16 @@
+<html><body>
+<section x-data class="a0-mobile-home" aria-labelledby="a0-mobile-home-title">
+  <img class="a0-mobile-home-logo" src="/plugins/mobile_apps/webui/logo.webp" width="64" height="64" alt="">
+  <div class="a0-mobile-home-copy"><h2 id="a0-mobile-home-title">Agent Zero on mobile</h2><p>Take your workspace with you. Get the Android app or join the iOS public beta.</p></div>
+  <div class="a0-mobile-home-actions">
+    <button class="button" type="button" @click="openModal('/plugins/mobile_apps/webui/android-app.html')"><x-icon name="android" aria-hidden="true"></x-icon><span>Android</span></button>
+    <a class="button" href="https://testflight.apple.com/join/xqAFS5er" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M17.05 12.04c.02 3.06 2.69 4.08 2.72 4.09-.02.07-.43 1.46-1.41 2.9-.85 1.24-1.73 2.48-3.12 2.5-1.37.03-1.81-.81-3.38-.81-1.56 0-2.05.78-3.35.84-1.34.05-2.36-1.34-3.21-2.58-1.75-2.53-3.09-7.16-1.29-10.28.89-1.55 2.49-2.53 4.23-2.56 1.32-.03 2.57.89 3.38.89.81 0 2.33-1.1 3.92-.94.66.03 2.52.27 3.72 2.02-.1.06-2.22 1.29-2.21 3.93M14.46 4.42c.71-.86 1.19-2.06 1.06-3.25-1.02.04-2.25.68-2.98 1.53-.65.75-1.22 1.96-1.06 3.11 1.13.09 2.28-.57 2.98-1.39"/></svg><span>iOS beta</span></a>
+  </div>
+</section>
+</body><style>
+.a0-mobile-home{display:grid;grid-template-columns:56px minmax(0,1fr);align-content:start;align-items:center;gap:18px;padding:22px;border:1px solid var(--color-border);border-radius:16px;background:var(--color-panel);color:var(--color-text)}
+.a0-mobile-home-logo{width:56px;height:56px;border-radius:12px;object-fit:contain}
+.a0-mobile-home-copy{min-width:0}.a0-mobile-home h2{margin:0 0 6px;font-size:1.1rem;line-height:1.35}.a0-mobile-home p{margin:0;color:var(--color-text-secondary);font-size:.875rem;line-height:1.5}
+.a0-mobile-home-actions{display:flex;gap:10px;grid-column:2}.a0-mobile-home-actions .button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;text-decoration:none;margin:0;white-space:nowrap}.a0-mobile-home-actions x-icon{font-size:20px}.a0-mobile-home-actions svg{width:18px;height:18px}.a0-mobile-home-actions .button:focus-visible{outline:2px solid var(--color-primary);outline-offset:3px}
+@media(max-width:500px){.a0-mobile-home{gap:14px;padding:18px;grid-template-columns:48px minmax(0,1fr)}.a0-mobile-home-logo{width:48px;height:48px}.a0-mobile-home-actions{grid-column:1/-1}.a0-mobile-home-actions .button{flex:1}}
+</style></html>
