@@ -6,9 +6,9 @@ import * as connection from '../webui/connection.mjs';
 // Load the actual store with browser/core imports replaced by test doubles.
 const source=(await readFile(new URL('../webui/android-app-store.js',import.meta.url),'utf8')).replace(/^import .*;\n/gm,'').replace('export const store =','globalThis.store =');
 const qr = name => `[data-mobile-qr="${name}"]`;
-function fixture(origin,request){
+function fixture(origin,request,writeText){
  const notices=[];
- const context=vm.createContext({...connection,URL,location:{origin},navigator:{userAgent:'Android'},createStore:(_,value)=>value,callJsonApi:request,toastFrontendError:(...args)=>notices.push(args)});
+ const context=vm.createContext({...connection,URL,location:{origin},navigator:{userAgent:'Android',clipboard:writeText ? {writeText} : undefined},createStore:(_,value)=>value,callJsonApi:request,toastFrontendError:(...args)=>notices.push(args)});
  vm.runInContext(source,context);
  const model=context.store.createModel(),codes=new Map(),draws=[];
  model.drawCode=(element,value)=>{codes.set(element.selector,value);draws.push({selector:element.selector,value});};
@@ -61,4 +61,35 @@ test('closing while tunnel status is pending cannot redraw or mutate a new dialo
  release({success:true,tunnel_url:'https://stale.example'});await pending;
  assert.equal(f.model.server,'');assert.equal(reopened.server,'');assert.equal(f.draws.length,2);assert.equal(f.notices.length,0);
  assert.equal(f.codes.has(qr('connect')),false);
+});
+
+test('copy uses only the server origin and reports success after the clipboard resolves',async()=>{
+ let release, written;
+ const f=fixture('https://agent.example',()=>{},value=>{written=value;return new Promise(resolve=>{release=resolve});});
+ await f.model.onOpen(f.element);
+ const pending=f.model.copyServer();
+ assert.equal(written,'https://agent.example');assert.equal(f.model.copied,false);assert.equal(f.model.copying,true);
+ release();await pending;
+ assert.equal(f.model.copied,true);assert.equal(f.model.copying,false);assert.equal(f.notices.length,0);
+});
+test('unavailable or denied clipboard leaves a selectable address and gives a safe recovery message',async()=>{
+ for(const clipboard of [undefined,async()=>{throw Error('private platform error')}]){
+  const f=fixture('https://agent.example',()=>{},clipboard);await f.model.onOpen(f.element);
+  await f.model.copyServer();
+  assert.equal(f.model.server,'https://agent.example');assert.equal(f.model.copied,false);assert.equal(f.model.copying,false);
+  assert.equal(f.notices.length,1);assert.match(f.notices[0][0],/copy it manually/);assert.ok(!JSON.stringify(f.notices).includes('private'));
+ }
+});
+test('closing during a clipboard write cannot show success in a reopened dialog',async()=>{
+ let release;
+ const f=fixture('https://agent.example',()=>{},()=>new Promise(resolve=>{release=resolve}));await f.model.onOpen(f.element);
+ const pending=f.model.copyServer();f.model.cleanup();const reopened=f.store.createModel();release();await pending;
+ assert.equal(f.model.copied,false);assert.equal(reopened.copied,false);assert.equal(f.notices.length,0);
+});
+test('copy does nothing without a server or during another clipboard write',async()=>{
+ let calls=0,release;
+ const f=fixture('https://agent.example',()=>{},()=>{calls++;return new Promise(resolve=>{release=resolve})});
+ await f.model.copyServer();assert.equal(calls,0);
+ await f.model.onOpen(f.element);const pending=f.model.copyServer();await f.model.copyServer();assert.equal(calls,1);
+ release();await pending;
 });

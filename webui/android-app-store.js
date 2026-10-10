@@ -13,7 +13,7 @@ function phoneOrigin(value) {
 export const store = createStore('mobileAppsStore', {
   createModel() {
     return {
-      server: '', loading: true, disposed: false,
+      server: '', loading: true, disposed: false, copied: false, copying: false,
       apk: APK_URL, iosBeta: IOS_BETA_URL,
       get installUrl() { return installLink(this.server); },
       get openUrl() { return appLink(this.server, /Android/i.test(navigator.userAgent)); },
@@ -43,13 +43,26 @@ export const store = createStore('mobileAppsStore', {
         if (!element) return;
         element.replaceChildren();
         try {
-          new globalThis.QRCode(element, { text, width: 160, height: 160, colorDark: '#101817', colorLight: '#ffffff', correctLevel: globalThis.QRCode.CorrectLevel.M });
+          new globalThis.QRCode(element, { text, width: 144, height: 144, colorDark: '#101817', colorLight: '#ffffff', correctLevel: globalThis.QRCode.CorrectLevel.M });
           element.removeAttribute('title');
         } catch {
           toastFrontendError('QR code could not be drawn. Use the download and server address links instead.', 'Mobile Apps');
         }
       },
-      cleanup() { this.disposed = true; this.server = ''; },
+      async copyServer() {
+        if (!this.server || this.disposed || this.copying) return;
+        this.copying = true;
+        this.copied = false;
+        try {
+          await navigator.clipboard.writeText(this.server);
+          if (!this.disposed) this.copied = true;
+        } catch {
+          if (!this.disposed) toastFrontendError('Could not copy the address. Select the server address and copy it manually.', 'Mobile Apps');
+        } finally {
+          if (!this.disposed) this.copying = false;
+        }
+      },
+      cleanup() { this.disposed = true; this.server = ''; this.copied = false; this.copying = false; },
     };
   },
 });
